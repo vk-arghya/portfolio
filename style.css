@@ -1,0 +1,184 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: black;
+  color: white;
+}
+
+/* Header Styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: black; /* pure black background */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Removed box-shadow or red mark */
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #ff4d4d; /* red color */
+  user-select: none;
+  cursor: default;
+  text-shadow: none; /* removed 3d/glow */
+  transition: color 0.3s ease;
+}
+.logo:hover {
+  color: #ff4d4d;
+  text-shadow: none; /* keep no glow on hover */
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-left: 25px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  user-select: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent; /* for underline on hover */
+}
+
+/* Remove red glow or background on hover, add subtle underline */
+nav ul li a:hover,
+nav ul li a:focus {
+  color: #ff0000;
+  outline: none;
+  text-shadow: none;  /* no glow */
+  background-color: transparent;
+  border-bottom: 2px solid #ff0000; /* red underline */
+}
+
+/* Intro Section */
+.intro {
+  display: flex;
+  height: calc(100vh - 80px); /* Adjust 80px to your header's height */
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.left {
+  flex: 1 1 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image {
+  width: 650px;         /* Adjust width as needed */
+  height: 600px;        /* Adjust height as needed */
+  object-fit: cover;    /* Ensures the image covers the area */
+  border-radius: 0;     /* Removes the circle effect */
+  display: block;
+  margin: 0 auto;       /* Centers the image */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3); /* Optional: adds a shadow */
+}
+/* .profile-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.9);
+} */
+
+.right {
+  flex: 1 1 300px;
+  text-align: left;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0; /* Remove default gap */
+  min-width: 280px;
+  padding-left: 30px;
+}
+
+.hello-line {
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  font-size: 50px;
+  color: #fff;
+  white-space: nowrap; /* Keep on one line */
+}
+
+.hello-line .hello-red {
+  color: #ff4d4d;
+}
+
+.subtitle {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+  font-weight: 400;
+}
+
+.location-line {
+  margin: 0;
+  font-size: 50px;
+  color: #fff;
+  font-weight: 800;
+}
+.right h2 {
+  margin: 0;
+  font-size: 32px;
+  color: white;
+  font-weight: 400;
+  text-shadow:
+    1px 1px 0 #222,
+    2px 2px 4px rgba(0, 0, 0, 0.75);
+}
+.subtitle {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.hello-text {
+  color: #ff4d4d; /* Light red */
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .intro {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .right h1 {
+    font-size: 44px;
+  }
+  .right h2 {
+    font-size: 24px;
+  }
+  header {
+    flex-wrap: wrap;
+    padding: 15px 20px;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  nav ul li {
+    margin: 8px 15px 0 15px;
+  }
+}
