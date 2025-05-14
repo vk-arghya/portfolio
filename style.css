@@ -16,7 +16,6 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  /* Removed box-shadow or red mark */
 }
 
 .logo {
@@ -95,10 +94,6 @@ nav ul li a:focus {
   margin: 0 auto;       /* Centers the image */
   box-shadow: 0 4px 16px rgba(0,0,0,0.3); /* Optional: adds a shadow */
 }
-/* .profile-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.9);
-} */
 
 .right {
   flex: 1 1 300px;
@@ -124,19 +119,13 @@ nav ul li a:focus {
   color: #ff4d4d;
 }
 
-.subtitle {
-  color: #fff;
-  font-size: 1.5rem;
-  margin-bottom: 2px;
-  font-weight: 400;
-}
-
 .location-line {
   margin: 0;
   font-size: 50px;
   color: #fff;
   font-weight: 800;
 }
+
 .right h2 {
   margin: 0;
   font-size: 32px;
@@ -146,6 +135,7 @@ nav ul li a:focus {
     1px 1px 0 #222,
     2px 2px 4px rgba(0, 0, 0, 0.75);
 }
+
 .subtitle {
   color: #fff;
   font-size: 1.2rem;
@@ -157,54 +147,89 @@ nav ul li a:focus {
   color: #ff4d4d; /* Light red */
 }
 
-/* Responsive */
+/* Responsive: Best mobile view */
 @media (max-width: 700px) {
+  header {
+    flex-wrap: wrap;
+    padding: 15px 20px;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 10px 0 0 0;
+  }
+  nav ul li {
+    margin: 8px 0;
+    width: 100%;
+    text-align: center;
+  }
+  nav ul li a {
+    display: block;
+    width: 100%;
+    font-size: 18px;
+    padding: 10px 0;
+    border-bottom: none;
+    border-radius: 0;
+    transition: background-color 0.3s ease;
+  }
+  nav ul li a:hover,
+  nav ul li a:focus {
+    color: #ff0000;
+    border-bottom: none;
+    background-color: rgba(255, 0, 0, 0.1);
+    text-shadow: none;
+    outline: none;
+  }
+
   .intro {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
     height: auto;
-    padding: 20px 10px 0 10px;
+    padding: 20px 15px 40px 15px;
   }
 
-  .left, .right {
-    flex: unset;
-    min-width: unset;
+  .left {
+    width: 90vw;
+    max-width: 400px;
+  }
+  .profile-image {
     width: 100%;
+    height: auto;
+    max-height: 400px;
+    box-shadow: 0 4px 20px rgba(255, 0, 0, 0.6);
+  }
+
+  .right {
+    width: 90vw;
     padding-left: 0;
     text-align: center;
-  }
-
-  .profile-image {
-    width: 90vw;
-    max-width: 320px;
-    height: auto;
-    margin-bottom: 16px;
+    gap: 10px;
   }
 
   .hello-line {
-    font-size: 2rem;
+    font-size: 3rem;
     white-space: normal;
   }
 
+  .hello-line .hello-red {
+    color: #ff4d4d;
+  }
+
   .location-line {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  .right h2 {
+    font-size: 1.25rem;
+    text-shadow: none;
   }
 
   .subtitle {
     font-size: 1rem;
-    margin-bottom: 6px;
-  }
-
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  nav ul li {
-    margin-left: 0;
+    margin-bottom: 8px;
   }
 }
