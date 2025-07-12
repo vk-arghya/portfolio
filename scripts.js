@@ -1,4 +1,4 @@
-// Smooth scroll to contact section
+
 const contactBtn = document.querySelector('.btn-contact');
 if (contactBtn) {
   contactBtn.addEventListener('click', () => {
@@ -6,7 +6,7 @@ if (contactBtn) {
   });
 }
 
-// Zoom in/out effect for project boxes (already CSS handled, optional extra JS hover effect)
+
 const projectBoxes = document.querySelectorAll('.project-box');
 projectBoxes.forEach(box => {
   box.addEventListener('mouseenter', () => {
