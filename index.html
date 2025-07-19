@@ -1,204 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Arghya Ghoshal - Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <title>ChatZy</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #0b141a;
+    font-family: 'Inter', sans-serif;
+    color: #e0e0e0;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100dvh;
+    background: #0b141a;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+}
+
+.chat-popup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Header */
+.chat-header {
+    padding: 18px 22px;
+    background: #202c33;
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Chat Area */
+.chat-area {
+    overflow-y: auto;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    height: calc(100dvh - 65px - 70px);
+}
+
+.chat-area::-webkit-scrollbar {
+    width: 5px;
+}
+.chat-area::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+
+/* Messages */
+.chat-bubble {
+    max-width: 90%;
+    padding: 14px 18px;
+    border-radius: 18px;
+    line-height: 1.8;
+    font-size: 18px;
+    word-break: break-word;
+    position: relative;
+}
+
+.user-msg {
+    align-self: flex-end;
+    background: #005c4b;
+    color: #fff;
+    border-radius: 18px 0 18px 18px;
+}
+
+.bot-msg {
+    align-self: flex-start;
+    background: #202c33;
+    color: #d1d1d1;
+}
+
+.copy-btn {
+    position: absolute;
+    bottom: 5px; right: 10px;
+    font-size: 14px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+}
+
+/* Input */
+.chat-input-container {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%;
+    background: #202c33;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    background: #2a3942;
+    color: #fff;
+}
+
+.chat-input::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.send-btn {
+    background: none;
+    border: none;
+    color: #25d366;
+    font-size: 26px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+/* Markdown Code */
+.markdown-content pre {
+    background: #1e1e1e !important;
+    padding: 12px;
+    border-radius: 10px;
+    overflow-x: auto;
+    color: #93c5fd;
+}
+
+/* Share Modal */
+.share-modal {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #202c33;
+    padding: 25px;
+    border-radius: 10px;
+    color: #fff;
+    z-index: 2000;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    width: 90%;
+    max-width: 400px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.share-modal input {
+    width: 100%;
+    padding: 12px;
+    background: #2a3942;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.share-modal button {
+    padding: 10px 15px;
+    background: #25d366;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.share-modal .close-share {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 20px;
+    position: absolute;
+    top: 10px; right: 15px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .chat-bubble { font-size: 20px; max-width: 95%; }
+    .chat-input { font-size: 20px; }
+    .chat-header { font-size: 20px; padding: 16px 20px; }
+    .send-btn { font-size: 28px; }
+}
+    </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="logo">Arghya Ghoshal</div>
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#skills">My Skills</a></li>
-        <li><a href="#projects">My Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+<div class="overlay">
+    <div class="chat-popup">
+        <div class="chat-header">
+            <span>Chatzy</span>
+            <div>
+                <button id="shareBtn" class="header-btn">🔗 Share</button>
+                <button id="closeChat" class="header-btn">✖️</button>
+            </div>
+        </div>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-text">
-      <h1>Hey! I'm</h1>
-      <h2>Arghya Ghoshal</h2>
-      <p>Crafting code with purpose and design with passion.
-Let’s work together to build experiences that truly matter.</p>
-      <div class="hero-buttons">
-  <a href="ArghyaCV.pdf" class="btn btn-cv" download>Download CV</a>
-  <a href="#contact" class="btn btn-contact">Contact Me</a>
+        <div id="chatArea" class="chat-area"></div>
+
+        <div class="chat-input-container">
+            <input id="userInput" type="text" placeholder="Type your message..." class="chat-input" />
+            <button id="sendBtn" class="send-btn">➤</button>
+        </div>
+    </div>
 </div>
 
-    </div>
-    <div class="hero-image">
-      <img src="Arghya.png" alt="Arghya Ghoshal">
-    </div>
-  </section>
-
-  <!-- About Me -->
- 
-    <section class="about" id="about">
-  <h2>About Me</h2>
-  <div class="about-container">
-    
-    <!-- About Me Box -->
-    <div class="about-box hover-glow">
-      <p>
-        I'm Arghya Ghoshal, a passionate web developer and designer who loves creating modern,
-        elegant, and responsive websites. My goal is to solve real-world problems with clean and
-        efficient code. I'm currently exploring data analysis, full stack development, and building
-        side projects.
-      </p>
-    </div>
-
-    <!-- Education Box -->
-    <div class="about-box hover-glow">
-      <h3>Education</h3>
-      <ul>
-        <li><strong>B.Tech (CSE)</strong> – Rcciit , (2023–2026) With 7.97 CGPA</li>
-        <li><strong>Diploma</strong> – Ghatal Goverment Polytechnic , (2023) With 7.9 CGPA</li>
-        <li><strong>10th</strong> – Gargaria Subhas High School , (2020) With 71.71 Percentage</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- Skills -->
-  <section class="skills" id="skills">
-  <h2 class="section-title">My Skills</h2>
-
-  <!-- Technical Skills Box -->
-  <div class="skills-box">
-    <h3 class="skills-subheading">Technical Skills</h3>
-    <div class="skills-grid">
-      <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
-      <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS3</div>
-      <div class="skill-item"><i class="fab fa-java"></i> Java</div>
-      <div class="skill-item"><i class="fab fa-c"></i> C</div>
-      <div class="skill-item"><i class="fab fa-node-js"></i> Node.js</div>
-      <div class="skill-item"><i class="fab fa-python"></i> Python</div>
-      <div class="skill-item"><i class="fas fa-database"></i> MySQL</div>
-      <div class="skill-item"><i class="fab fa-github"></i> GitHub</div>
-    </div>
-  </div>
-
-  <!-- Soft Skills Box -->
-  <div class="skills-box">
-    <h3 class="skills-subheading">Soft Skills</h3>
-    <div class="soft-skills-grid">
-      <div class="soft-skill">• Communication</div>
-      <div class="soft-skill">• Teamwork</div>
-      <div class="soft-skill">• Problem Solving</div>
-      <div class="soft-skill">• Time Management</div>
-      <div class="soft-skill">• Adaptability</div>
-      <div class="soft-skill">• Creativity</div>
-      <div class="soft-skill">• Team Collabration</div>
-      <div class="soft-skill">• Critical Thinking</div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- Projects -->
-  <section class="projects" id="projects">
-    <h2>My Projects</h2>
-    <p>Here are some projects I've worked on recently:</p>
-    <div class="projects-grid">
-      <div class="project-box">
-        <h3>Movie/Book-Rating Website</h3>
-        <p>A movie and book rating website built using Node.js, Express, MySQL, and Sequelize to let users review, rate, and explore their favorite titles.</p>
-        <div class="project-links">
-         
-          <a href="https://rate-it-all.onrender.com/" target="_blank" rel="noopener noreferrer">Live Demo</a>
-<a href="https://github.com/vk-arghya/rate-it-all" target="_blank" rel="noopener noreferrer">Git Repo</a>
-</a>
-        </div>
-      </div>
-      <div class="project-box">
-        <h3>Real-Time Dynamic Notepad</h3>
-        <p>Real-time chat app using Socket.IO and Node.js with group and direct messaging.</p>
-        <div class="project-links">
-          
-          <a href="https://real-time-chat-errx.onrender.com/" target="_blank" rel="noopener noreferrer">Live Demo</a>
-<a href="https://github.com/vk-arghya/Dynamic-notepad" target="_blank" rel="noopener noreferrer">Git Repo</a>
-</a>
-        </div>
-      </div>
-      <div class="project-box">
-        <h3>Text Summarization</h3>
-        <p>A text summarization web app built with Flask and Hugging Face Transformers to generate concise summaries from lengthy content.</p>
-        <div class="project-links">
-          
-           <a href="https://real-time-chat-errx.onrender.com/" target="_blank" rel="noopener noreferrer">Live Demo</a>
-<a href="https://github.com/vk-arghya/text_summarized" target="_blank" rel="noopener noreferrer">Git Repo</a>
-        </div>
-      </div>
-      <div class="project-box">
-        <h3>Service Finder</h3>
-        <p>A local service finder web app built with Node.js that connects users with nearby electricians, plumbers, and other essential providers through categorized listings and map integration.</p>
-        
-          
-          
-          <a><strong>Coming Soon</strong></a>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-
-  <<section id="contact">
-<div class="contact-heading">
-  <h2 class="animate-contact">Contact</h2>
-  <p class="animate-subline">Let's make the internet prettier — one message at a time! 💬</p>
+<!-- Share Modal -->
+<div class="share-modal" id="shareModal">
+    <button class="close-share" id="closeShare">✖️</button>
+    <div>Share this chat link:</div>
+    <input type="text" id="shareLink" readonly />
+    <button id="copyLink">📋 Copy Link</button>
+    <button id="nativeShare">📤 Share via App</button>
 </div>
 
-  <section class="contact" id="contact">
-    <div class="contact-icons">
-  <a href="https://wa.me/916291561585" target="_blank"><i class="fab fa-whatsapp"></i></a>
-  <a href="tel:+916291561585"><i class="fas fa-phone-alt"></i></a>
-  <a href="mailto:arghyaghoshal44@gmail.com"><i class="fas fa-envelope"></i></a>
-  <a href="https://www.instagram.com/aaarg.hyaaa/" target="_blank"><i class="fab fa-instagram"></i></a>
-  <a href="https://www.linkedin.com/in/arghya-ghoshal-56527529a/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-  <a href="https://www.facebook.com/viratian.arghya.3/" target="_blank"><i class="fab fa-facebook-f"></i></a>
- 
-</div>
-</section>
-<h3 class="form-heading">Send me a message 💌</h3>
+<script>
+const closeChat = document.getElementById('closeChat');
+const chatArea = document.getElementById('chatArea');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
 
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-  <footer class="footer">
-  <div class="footer-content">
-    <h3>Arghya Ghoshal</h3>
-    <p>Thank you for visiting my portfolio website.</p>
+closeChat.addEventListener('click', () => window.location.reload());
 
-   <div class="footer-buttons">
-  <a href="ArghyaCV.pdf" class="footer-link" download>Download CV</a>
-  <a href="#contact" class="footer-link">Contact Me</a>
-</div>
+document.addEventListener('DOMContentLoaded', () => {
+    sendWelcomeMessage();
+    userInput.focus();
+});
 
-  </div>
-  <p class="footer-copy">© 2025 Arghya Ghoshal. All rights reserved.</p>
-</footer>
+sendBtn.addEventListener('click', sendMessage);
+userInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+});
 
+function sendWelcomeMessage() {
+    const welcomeText = `
+# 👋 Welcome to Chatzy!
+Feel free to ask me anything! 🚀
+`;
+    addMessage(welcomeText, "bot");
+}
 
-  <script src="scripts.js"></script>
+async function sendMessage() {
+    if (userInput.value.trim() === "") return;
+
+    const userMessage = userInput.value;
+    addMessage(userMessage, "user");
+    userInput.value = "";
+
+    const botThinking = document.createElement('div');
+    botThinking.className = 'chat-bubble bot-msg';
+    botThinking.innerHTML = `<span class="typing-animation">Bot is typing...</span>`;
+    chatArea.appendChild(botThinking);
+    chatArea.scrollTop = chatArea.scrollHeight;
+
+    const botReply = await getAIResponse(userMessage);
+
+    chatArea.removeChild(botThinking);
+    addMessage(botReply, "bot");
+}
+
+function addMessage(message, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-bubble ${sender === "user" ? "user-msg" : "bot-msg"}`;
+
+    if (sender === "bot") {
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'markdown-content';
+        contentDiv.innerHTML = marked.parse(message);
+
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '📋';
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(message.replace(/[#*_`]/g, '').replace(/<[^>]*>/g, ''));
+            copyBtn.textContent = '✅';
+            setTimeout(() => copyBtn.textContent = '📋', 1000);
+        });
+
+        msgDiv.appendChild(copyBtn);
+        msgDiv.appendChild(contentDiv);
+        setTimeout(() => Prism.highlightAll(), 50);
+    } else {
+        msgDiv.textContent = message;
+    }
+
+    chatArea.appendChild(msgDiv);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+async function getAIResponse(userMessage) {
+    try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userMessage })
+        });
+
+        const data = await response.json();
+        return data.reply;
+    } catch {
+        return "⚠️ Connection error.";
+    }
+}
+
+// Share Modal Logic
+const shareBtn = document.getElementById('shareBtn');
+const shareModal = document.getElementById('shareModal');
+const closeShare = document.getElementById('closeShare');
+const shareLink = document.getElementById('shareLink');
+const copyLink = document.getElementById('copyLink');
+const nativeShare = document.getElementById('nativeShare');
+
+shareBtn.addEventListener('click', () => {
+    const url = window.location.href + '?chat=12345'; // Example chat ID
+    shareLink.value = url;
+    shareModal.style.display = 'flex';
+});
+
+closeShare.addEventListener('click', () => {
+    shareModal.style.display = 'none';
+});
+
+copyLink.addEventListener('click', () => {
+    navigator.clipboard.writeText(shareLink.value);
+    copyLink.textContent = '✅ Copied!';
+    setTimeout(() => copyLink.textContent = '📋 Copy Link', 1000);
+});
+
+nativeShare.addEventListener('click', async () => {
+    const shareData = { title: "Arghya's Chat", text: "Join my chat", url: shareLink.value };
+    if (navigator.share) {
+        try { await navigator.share(shareData); } catch (e) {}
+    } else {
+        alert('Share not supported on this device.');
+    }
+});
+</script>
+
 </body>
 </html>
