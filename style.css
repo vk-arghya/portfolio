@@ -1,4 +1,4 @@
-
+/* ==== General Reset ==== */
 * {
   margin: 0;
   padding: 0;
@@ -31,7 +31,7 @@ img {
   object-fit: contain;
 }
 
-
+/* ==== Header ==== */
 header {
   background-color: #161b22;
   display: flex;
@@ -67,7 +67,7 @@ nav a:hover {
   color: #58a6ff;
 }
 
-
+/* ==== Hero ==== */
 .hero {
   display: flex;
   justify-content: space-between;
@@ -178,13 +178,13 @@ nav a:hover {
   transition: all 0.3s ease;
 }
 
-
+/* Hover Glow Effect */
 .hover-glow:hover {
   box-shadow: 0 0 20px rgba(88, 166, 255, 0.3);
   transform: translateY(-2px);
 }
 
-
+/* Education Text */
 .about-box h3 {
   color: #58a6ff;
   font-size: 20px;
@@ -203,7 +203,7 @@ nav a:hover {
   margin-right: 6px;
 }
 
-
+/* ==== Projects Section (Modern Premium Style) ==== */
 .projects {
   padding: 80px 100px;
   background: radial-gradient(circle at top left, #161b22, #0d1117);
@@ -304,7 +304,7 @@ nav a:hover {
 }
 
 
-
+/* Responsive adjustment */
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
@@ -392,7 +392,7 @@ nav a:hover {
 
 
 
-
+/* ==== Contact Icons ==== */
 .contact-icons {
   display: flex;
   flex-wrap: wrap;
@@ -456,7 +456,7 @@ nav a:hover {
   background-color: #2ea043;
 }
 
-
+/* ==== Footer ==== */
 footer {
   background-color: #161b22;
   color: #8b949e;
@@ -465,6 +465,7 @@ footer {
   font-size: 14px;
 }
 
+/* ==== Responsive Design ==== */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -511,7 +512,7 @@ footer {
   animation: fadeIn 2s ease-in;
 }
 
-
+/* Animation keyframes */
 @keyframes fadeSlideDown {
   from {
     opacity: 0;
@@ -676,12 +677,12 @@ footer {
     padding: 20px 10px;
   }
 
-
+  /* Form Layout */
   form {
     padding: 0 20px;
   }
 
-
+  /* Header */
   header {
     flex-direction: column;
     align-items: flex-start;
@@ -872,7 +873,6 @@ footer {
     width: 100%;
   }
 }
-
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
@@ -907,6 +907,7 @@ footer {
     z-index: -1;
   }
 }
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -919,4 +920,91 @@ footer {
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.service-box {
+  background-color: #1e1e1e;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 30px;
+  width: 300px;
+  text-align: center;
+  transition: border 0.3s;
+  position: relative;
+}
+
+.service-box:hover {
+  border-color: red;
+}
+
+.service-box h3 {
+  font-size: 22px;
+  color: white;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.service-box h3::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #3b82f6; /* blue underline */
+  margin: 10px auto;
+  border-radius: 4px;
+}
+
+.service-box p {
+  font-size: 15px;
+  color: #d1d5db; /* light gray */
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.service-btn {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.service-btn:hover {
+  background-color: #2563eb;
+}
+
+.icon-links {
+  margin-top: 10px;
+}
+
+.icon-links a {
+  color: #3b82f6;
+  font-size: 20px;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+.icon-links a:hover {
+  color: red;
+}
+
+
+.service-box {
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  padding: 20px;
+  width: 300px;
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.service-box:hover {
+  border-color: #007bff; /* Bright blue border on hover */
+  box-shadow: 0 0 12px #007bff; /* Optional: makes it pop with glow */
+  transform: translateY(-5px);
 }
