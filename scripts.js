@@ -21,3 +21,7 @@ projectBoxes.forEach(box => {
     window.scrollTo(0, 0);
   };
 
+ function showThankYou(event) {
+    event.preventDefault(); // stop actual form submission
+    document.getElementById("thank-you-msg").style.display = "block";
+  }
