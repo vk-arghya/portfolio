@@ -251,12 +251,19 @@ Crafted a responsive dual-section skill showcase using HTML5, JS, CSS3 (Flexbox 
 </section>
 <h3 class="form-heading">Send me a message 💌</h3>
 
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+    <form class="contact-form" onsubmit="showThankYou(event)">
+  <input type="text" placeholder="Your Name" required>
+  <input type="email" placeholder="Your Email" required>
+  <textarea placeholder="Your Message" required></textarea>
+
+ 
+  <p id="thank-you-msg" style="display:none; color: green; font-weight: bold; margin-bottom: 10px;">
+    Thank you for your feedback, I’ll connect with you quickly!
+  </p>
+
+  <button type="submit">Send Message</button>
+</form>
+
   </section>
   <footer class="footer">
   <div class="footer-content">
